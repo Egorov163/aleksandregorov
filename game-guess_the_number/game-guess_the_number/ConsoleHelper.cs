@@ -24,5 +24,26 @@ namespace game_guess_the_number
 
             return userGuess;
         }
+        public static string CheckingIncomingData(string rightAnswer1, string rightAnswer2)
+        {
+            bool isUserGood = false;
+            string userGuess;
+            do
+            {
+                userGuess = Console.ReadLine();
+
+                if (userGuess == rightAnswer1 || userGuess == rightAnswer2)
+                {
+                    isUserGood = true;                   
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect data, try again");
+                }
+                
+            } while (!isUserGood);
+
+            return userGuess;
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace game_guess_the_number
             Console.WriteLine("If you want to play with [B]ot enter B");
             Console.WriteLine("If you want to play with [U]ser enter U");
 
-            var userAnsewr = Console.ReadLine();
+            var userAnsewr = ConsoleHelper.CheckingIncomingData("B", "U");
 
             switch (userAnsewr)
             {
