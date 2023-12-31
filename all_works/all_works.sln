@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game-guess_the_number", "game-guess_the_number\game-guess_the_number.csproj", "{5A006DFA-6981-4E83-8489-E2A259609C97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game_maze", "game_maze\game_maze.csproj", "{3071D6AC-5494-431B-AA6C-080034165129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5A006DFA-6981-4E83-8489-E2A259609C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A006DFA-6981-4E83-8489-E2A259609C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A006DFA-6981-4E83-8489-E2A259609C97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3071D6AC-5494-431B-AA6C-080034165129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3071D6AC-5494-431B-AA6C-080034165129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3071D6AC-5494-431B-AA6C-080034165129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3071D6AC-5494-431B-AA6C-080034165129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
