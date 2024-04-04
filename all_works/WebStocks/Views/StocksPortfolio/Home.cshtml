@@ -1,0 +1,46 @@
+﻿    @model List<StockViewModel>
+
+@section CustomStyle {
+    <link rel="stylesheet" href="/css/main.css">
+}
+
+<body>
+
+    <div class="main">
+        <div class="left">
+            <div class="growth-dynamics">
+                <a href="#">Динамика роста портфеля</a>
+            </div>
+        </div>
+        <div class="centre">
+            <div class="the-title-of-the-list-of-shares">
+
+                <div>Название акции</div>
+                <div>Цена</div>
+                <div>Доля в портфеле</div>
+
+            </div>
+
+            <div class="list-of-shares">
+                @foreach (var stock in Model)
+                {
+                    <div class="table-of-shares">
+                        <div>@stock.Name </div>
+                        <div>@stock.Price</div>
+                        <div>5%</div>
+                    </div>
+                }
+            </div>
+
+            <div class="add-and-remove">
+                <div class="buttons-add-and-remove">
+                    <div>
+                        <a href="/StocksPortfolio/AddStock" class="button1">Добавить Акцию</a>
+                        <a href="#" class="button1">Удалить Акцию</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right"></div>
+    </div>
+</body>

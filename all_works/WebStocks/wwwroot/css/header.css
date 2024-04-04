@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana;
+}
+
+header {
+    display: flex;
+    background-color: rgb(183, 37, 37);
+}
+
+.site-title {
+    display: flex;
+    margin: 30px;
+}
+
+.site-title>div {
+    font-size: 23px;
+    font-family: Verdana;
+}
+
+.site-title>div>a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.online {
+    margin-right: 30px;
+}
+
+.home{
+    margin-right: 938px;
+}

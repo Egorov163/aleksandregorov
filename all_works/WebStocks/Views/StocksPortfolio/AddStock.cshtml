@@ -1,0 +1,17 @@
+﻿@model AddStockViewModel
+
+<form method="post">
+    <div>
+        Название @Html.TextBoxFor(x => x.Name)
+    </div>
+
+    <div>
+        Цена @Html.TextBoxFor(x => x.Price)
+        
+    </div>
+
+    <div>
+        <input type="submit" value="Добавить акцию" />
+    </div>
+</form>
+
