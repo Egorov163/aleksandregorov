@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game-guess_the_number", "ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game_maze", "game_maze\game_maze.csproj", "{3071D6AC-5494-431B-AA6C-080034165129}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStocks", "WebStocks\WebStocks.csproj", "{E0617F8A-F85A-4482-A283-3387B8DD214C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3071D6AC-5494-431B-AA6C-080034165129}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3071D6AC-5494-431B-AA6C-080034165129}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3071D6AC-5494-431B-AA6C-080034165129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0617F8A-F85A-4482-A283-3387B8DD214C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0617F8A-F85A-4482-A283-3387B8DD214C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0617F8A-F85A-4482-A283-3387B8DD214C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0617F8A-F85A-4482-A283-3387B8DD214C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
