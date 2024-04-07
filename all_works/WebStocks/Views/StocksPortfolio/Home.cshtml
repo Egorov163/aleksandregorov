@@ -25,9 +25,18 @@
                 @foreach (var stock in Model)
                 {
                     <div class="table-of-shares">
-                        <div>@stock.Name </div>
+                        <div>
+                            @stock.Name
+                            <form action="/StocksPortfolio/UpdateStockName" method="post">
+                                <input type="hidden" name="name" value="@stock.Name" />
+                                <input name="updName" value="@stock.Name" />
+                                <input type="submit" value="обновить" />
+                            </form>
+                        </div>
                         <div>@stock.Price</div>
                         <div>5%</div>
+
+                        <a href="/StocksPortfolio/RemoveStock?name=@stock.Name" class="button1">Удалить Акцию</a>
                     </div>
                 }
             </div>
