@@ -6,7 +6,7 @@ namespace WebStocks.Controllers
 {
     public class StocksPortfolioController : Controller
     {
-        public static List<StockViewModel> stockViewModels = new List<StockViewModel>();
+        public static List<StockViewModel> stocksViewModels = new List<StockViewModel>();
 
         private readonly Portfolio _portfolio;
 
@@ -16,20 +16,21 @@ namespace WebStocks.Controllers
         }
 
         public IActionResult Home()
-        {          
-            return View(stockViewModels);
+        {
+
+            return View(stocksViewModels);
         }
 
         [HttpGet]
         public IActionResult AddStock()
-        {          
+        {
             return View();
         }
 
         [HttpPost]
         public IActionResult AddStock(AddStockViewModel addStockViewModel)
         {
-            stockViewModels.Add(new StockViewModel 
+            stocksViewModels.Add(new StockViewModel
             {
                 Name = addStockViewModel.Name,
                 Price = addStockViewModel.Price
@@ -37,11 +38,18 @@ namespace WebStocks.Controllers
             return RedirectToAction("Home");
         }
 
-
         public IActionResult RemoveStock(string name)
         {
-            var stock = stockViewModels.First(x => x.Name == name);
-            stockViewModels.Remove(stock);
+            var stock = stocksViewModels.First(x => x.Name == name);
+            stocksViewModels.Remove(stock);
+
+            return RedirectToAction("Home");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStockName(string name, string updName)
+        {
+            var stock = stocksViewModels.First(x => x.Name == name).Name = updName;
 
             return RedirectToAction("Home");
         }
