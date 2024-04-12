@@ -28,7 +28,7 @@
                         <div>
                             @stock.Name
                             <form action="/StocksPortfolio/UpdateStockName" method="post">
-                                <input type="hidden" name="name" value="@stock.Name" />
+                                <input type="hidden" name="id" value="@stock.Id" />
                                 <input name="updName" value="@stock.Name" />
                                 <input type="submit" value="обновить" />
                             </form>
@@ -36,7 +36,7 @@
                         <div>@stock.Price</div>
                         <div>5%</div>
 
-                        <a href="/StocksPortfolio/RemoveStock?name=@stock.Name" class="button1">Удалить Акцию</a>
+                        <a href="/StocksPortfolio/RemoveStock?id=@stock.Id" class="button1">Удалить Акцию</a>
                     </div>
                 }
             </div>
