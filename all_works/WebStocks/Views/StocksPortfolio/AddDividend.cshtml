@@ -1,0 +1,19 @@
+﻿@model AddDividendViewModel
+
+<form method="post">
+    <div>
+        Акция @Html.DropDownList("stockId", Model.Stocks)
+    </div>
+
+    <div>
+        Цена @Html.TextBoxFor(x => x.Price)
+
+    </div>
+   
+    <div>
+        <input type="submit" value="Добавить дивиденд" />
+    </div>
+
+
+</form>
+

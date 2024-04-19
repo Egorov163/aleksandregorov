@@ -1,32 +1,39 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>InvestPortfolio</title>
-        <link rel="stylesheet" href="/css/header.css">
-        @RenderSection("CustomStyle", false)
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestPortfolio</title>
+    <link rel="stylesheet" href="/css/header.css">
+    @RenderSection("CustomStyle", false)
+</head>
 
-    <header>
-        <div class="site-title">
-            <div class="portfel">
+<header>
+    <div class="site-title">
+        <div class="portfel">
             <a href="/StocksPortfolio/Home">Портфель</a>
-            </div>
-            <div class="online">
-                Online
-            </div>
-            <div class="home">
-            <a href="/StocksPortfolio/Home">Home</a>           
-            </div>
-            <div class="authorization">
-                <a href="#">Вход /</a>
-                <a href="#">Регистрация</a>
-            </div>
-
         </div>
-    </header>
-<body>         
-            @RenderBody()        
+        <div class="online">
+            Online
+        </div>
+        <div class="home">
+            <a href="/StocksPortfolio/Home">Список акций</a>
+        </div>
+        <div class="home">
+            <a href="/StocksPortfolio/Dividends">Список дивидендов</a>
+        </div>
+
+        <div class="add-dividend">
+            <a href="/StocksPortfolio/AddDividend">Добавить дивиденд</a>
+        </div>
+        <div class="authorization">
+            <a href="#">Вход /</a>
+            <a href="#">Регистрация</a>
+        </div>
+
+    </div>
+</header>
+<body>
+    @RenderBody()
 </body>
 </html>
