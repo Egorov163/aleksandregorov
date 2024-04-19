@@ -1,0 +1,43 @@
+﻿    @model List<DividendViewModel>
+
+@section CustomStyle {
+    <link rel="stylesheet" href="/css/main.css">
+}
+
+<body>
+
+    <div class="main">
+        
+        <div class="centre">
+            <div class="the-title-of-the-list-of-shares">
+
+                <div>Акция</div>
+                <div>Цена</div>
+
+            </div>
+
+            <div class="list-of-shares">
+                @foreach (var dividend in Model)
+                {
+                    <div class="table-of-shares">
+                        <div>
+                            @dividend.NameStock                           
+                        </div>
+                        <div>@dividend.Price</div>
+
+                        <a href="/StocksPortfolio/RemoveDividend?id=@dividend.Id" class="button1">Удалить дивиденд</a>
+                    </div>
+                }
+            </div>
+
+            <div class="add-and-remove">
+                <div class="buttons-add-and-remove">
+                    <div>
+                        <a href="/StocksPortfolio/AddDividend" class="button1">Добавить дивиденд</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right"></div>
+    </div>
+</body>

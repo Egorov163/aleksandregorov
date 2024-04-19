@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebStocks.DbStuff;
 
@@ -10,9 +11,11 @@ using WebStocks.DbStuff;
 namespace WebStocks.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416064837_renameDividends")]
+    partial class renameDividends
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace WebStocks.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Dividends");
+                    b.ToTable("Dividend");
                 });
 
             modelBuilder.Entity("WebStocks.DbStuff.Models.Stock", b =>

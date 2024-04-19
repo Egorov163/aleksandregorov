@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebStocks.DbStuff;
 
@@ -10,9 +11,11 @@ using WebStocks.DbStuff;
 namespace WebStocks.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416043939_UpdateDbModelAndCascadeDelete")]
+    partial class UpdateDbModelAndCascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,7 @@ namespace WebStocks.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebStocks.DbStuff.Models.Dividend", b =>
+            modelBuilder.Entity("WebStocks.DbStuff.Models.Coupon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +42,7 @@ namespace WebStocks.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Dividends");
+                    b.ToTable("Coupon");
                 });
 
             modelBuilder.Entity("WebStocks.DbStuff.Models.Stock", b =>
@@ -62,10 +65,10 @@ namespace WebStocks.Migrations
                     b.ToTable("Stocks");
                 });
 
-            modelBuilder.Entity("WebStocks.DbStuff.Models.Dividend", b =>
+            modelBuilder.Entity("WebStocks.DbStuff.Models.Coupon", b =>
                 {
                     b.HasOne("WebStocks.DbStuff.Models.Stock", "Stock")
-                        .WithMany("Dividends")
+                        .WithMany("Coupons")
                         .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -75,7 +78,7 @@ namespace WebStocks.Migrations
 
             modelBuilder.Entity("WebStocks.DbStuff.Models.Stock", b =>
                 {
-                    b.Navigation("Dividends");
+                    b.Navigation("Coupons");
                 });
 #pragma warning restore 612, 618
         }
