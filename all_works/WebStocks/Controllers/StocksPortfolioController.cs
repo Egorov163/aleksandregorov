@@ -10,7 +10,6 @@ namespace WebStocks.Controllers
 {
     public class StocksPortfolioController : Controller
     {
-
         private readonly Portfolio _portfolio;
         private WebDbContext _webDbContext { get; set; }
 
@@ -129,7 +128,5 @@ namespace WebStocks.Controllers
 
             return RedirectToAction("Dividends");
         }
-
-
     }
 }

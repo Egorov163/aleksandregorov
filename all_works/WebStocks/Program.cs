@@ -5,6 +5,7 @@ using WebStocks.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("WebStocksDb");
+builder.Services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
