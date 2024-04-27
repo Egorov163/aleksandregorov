@@ -6,6 +6,5 @@ namespace WebStocks.Models
     {
         public List<SelectListItem> Stocks { get; set; }
         public int Price { get; set; }
-
     }
 }

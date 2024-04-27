@@ -16,9 +16,7 @@ namespace WebStocks.DbStuff
                 .HasMany(stock => stock.Dividends)
                 .WithOne(dividend => dividend.Stock)
                 .OnDelete(DeleteBehavior.NoAction);
-
-
-            
+ 
 
             base.OnModelCreating(builder); 
         }

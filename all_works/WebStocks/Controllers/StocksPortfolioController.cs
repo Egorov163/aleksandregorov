@@ -10,7 +10,6 @@ namespace WebStocks.Controllers
 {
     public class StocksPortfolioController : Controller
     {
-
         private readonly Portfolio _portfolio;
         private WebDbContext _webDbContext { get; set; }
 
@@ -22,7 +21,7 @@ namespace WebStocks.Controllers
 
         public IActionResult Home()
         {
-            var dbStocks = _webDbContext.Stocks.Take(10).ToList();
+            var dbStocks = _webDbContext.Stocks.Where(x=>x.IsDeleted==false).Take(10).ToList();
 
             var viewModel = dbStocks.Select(dbStock => new StockViewModel
             {
@@ -44,6 +43,11 @@ namespace WebStocks.Controllers
         [HttpPost]
         public IActionResult AddStock(AddStockViewModel addStockViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(addStockViewModel);
+            } 
+
             var stock = new Stock
             {
                 Name = addStockViewModel.Name,
@@ -58,8 +62,7 @@ namespace WebStocks.Controllers
 
         public IActionResult RemoveStock(int id)
         {
-            var stock = _webDbContext.Stocks.First(x => x.Id == id);
-            _webDbContext.Remove(stock);
+            _webDbContext.Stocks.First(x => x.Id == id).IsDeleted=true;
             _webDbContext.SaveChanges();
 
             return RedirectToAction("Home");
@@ -97,6 +100,7 @@ namespace WebStocks.Controllers
             var viewModel = new AddDividendViewModel();
 
             viewModel.Stocks = _webDbContext.Stocks
+                .Where(x=>x.IsDeleted==false)
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
 
@@ -129,7 +133,5 @@ namespace WebStocks.Controllers
 
             return RedirectToAction("Dividends");
         }
-
-
     }
 }
