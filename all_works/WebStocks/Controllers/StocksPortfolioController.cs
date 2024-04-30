@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebStocks.DbStuff;
 using WebStocks.DbStuff.Models;
+using WebStocks.DbStuff.Repositories;
 using WebStocks.Models;
 using WebStocks.Services;
 
@@ -11,17 +12,20 @@ namespace WebStocks.Controllers
     public class StocksPortfolioController : Controller
     {
         private readonly Portfolio _portfolio;
-        private WebDbContext _webDbContext { get; set; }
 
-        public StocksPortfolioController(Portfolio portfolio, WebDbContext webDbContext)
+        private StockRepository _stockRepository;
+        private DividendRepository _dividendRepository;
+
+        public StocksPortfolioController(Portfolio portfolio, StockRepository stockRepository, DividendRepository dividendRepository)
         {
             _portfolio = portfolio;
-            _webDbContext = webDbContext;
+            _stockRepository = stockRepository;
+            _dividendRepository = dividendRepository;
         }
 
         public IActionResult Home()
         {
-            var dbStocks = _webDbContext.Stocks.Where(x=>x.IsDeleted==false).Take(10).ToList();
+            var dbStocks = _stockRepository.GetStocks(10);
 
             var viewModel = dbStocks.Select(dbStock => new StockViewModel
             {
@@ -53,17 +57,15 @@ namespace WebStocks.Controllers
                 Name = addStockViewModel.Name,
                 Price = addStockViewModel.Price
             };
-
-            _webDbContext.Stocks.Add(stock);
-            _webDbContext.SaveChanges();
+         
+            _stockRepository.AddStock(stock);
 
             return RedirectToAction("Home");
         }
 
         public IActionResult RemoveStock(int id)
         {
-            _webDbContext.Stocks.First(x => x.Id == id).IsDeleted=true;
-            _webDbContext.SaveChanges();
+            _stockRepository.Delete(id);           
 
             return RedirectToAction("Home");
         }
@@ -71,9 +73,8 @@ namespace WebStocks.Controllers
         [HttpPost]
         public IActionResult UpdateStockName(int id, string updName)
         {
-            _webDbContext.Stocks.First(x => x.Id == id).Name = updName;
-            _webDbContext.SaveChanges();
-
+            _stockRepository.UpdateStockName(id, updName);
+           
             return RedirectToAction("Home");
         }
 
@@ -81,7 +82,7 @@ namespace WebStocks.Controllers
 
         public IActionResult Dividends()
         {
-            var dbDividends = _webDbContext.Dividends.Include(x => x.Stock).Take(10).ToList();
+            var dbDividends = _dividendRepository.GetDividendsAndStock(10);
 
             var viewModel = dbDividends.Select(dbDividends => new DividendViewModel
             {
@@ -99,7 +100,7 @@ namespace WebStocks.Controllers
         {
             var viewModel = new AddDividendViewModel();
 
-            viewModel.Stocks = _webDbContext.Stocks
+            viewModel.Stocks = _stockRepository.GetAll()
                 .Where(x=>x.IsDeleted==false)
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
@@ -110,7 +111,7 @@ namespace WebStocks.Controllers
         [HttpPost]
         public IActionResult AddDividend(int price, int stockId)
         {
-            var stock = _webDbContext.Stocks.First(x => x.Id == stockId);
+            var stock = _stockRepository.GetStock(stockId);
 
             var dividend = new Dividend
             {
@@ -118,18 +119,14 @@ namespace WebStocks.Controllers
                 Stock = stock
             };
 
-            _webDbContext.Add(dividend);
-
-            _webDbContext.SaveChanges();
+            _dividendRepository.AddDividend(dividend);
 
             return RedirectToAction("Dividends");
         }
 
         public IActionResult RemoveDividend(int id)
         {
-            var dividend = _webDbContext.Dividends.First(x => x.Id == id);
-            _webDbContext.Remove(dividend);
-            _webDbContext.SaveChanges();
+            _dividendRepository.Delete(id);
 
             return RedirectToAction("Dividends");
         }
