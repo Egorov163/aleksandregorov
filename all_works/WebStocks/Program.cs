@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebStocks.DbStuff;
+using WebStocks.DbStuff.Repositories;
 using WebStocks.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,10 @@ builder.Services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<Portfolio>();
+
+//Repositories
+builder.Services.AddScoped<StockRepository>();
+builder.Services.AddScoped<DividendRepository>();
 
 var app = builder.Build();
 
