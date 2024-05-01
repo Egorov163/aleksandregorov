@@ -25,7 +25,7 @@ namespace WebStocks.Controllers
 
         public IActionResult Home()
         {
-            var dbStocks = _stockRepository.GetStocks(10);
+            var dbStocks = _stockRepository.Get(10);
 
             var viewModel = dbStocks.Select(dbStock => new StockViewModel
             {
@@ -58,7 +58,7 @@ namespace WebStocks.Controllers
                 Price = addStockViewModel.Price
             };
          
-            _stockRepository.AddStock(stock);
+            _stockRepository.Add(stock);
 
             return RedirectToAction("Home");
         }
@@ -82,7 +82,7 @@ namespace WebStocks.Controllers
 
         public IActionResult Dividends()
         {
-            var dbDividends = _dividendRepository.GetDividendsAndStock(10);
+            var dbDividends = _dividendRepository.Get(10);
 
             var viewModel = dbDividends.Select(dbDividends => new DividendViewModel
             {
@@ -111,15 +111,15 @@ namespace WebStocks.Controllers
         [HttpPost]
         public IActionResult AddDividend(int price, int stockId)
         {
-            var stock = _stockRepository.GetStock(stockId);
+            var stock = _stockRepository.GetById(stockId);
 
             var dividend = new Dividend
             {
                 Price = price,
-                Stock = stock
+                Stock = (Stock)stock
             };
 
-            _dividendRepository.AddDividend(dividend);
+            _dividendRepository.Add(dividend);
 
             return RedirectToAction("Dividends");
         }
