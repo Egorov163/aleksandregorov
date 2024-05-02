@@ -6,5 +6,7 @@
         public int Price { get; set; }
         public bool IsDeleted { get; set; }
         public virtual List<Dividend>? Dividends { get; set; }
+        public string? LogoUrl { get; set; }
+        public DateTime DateBuy { get; set; }
     }
 }
