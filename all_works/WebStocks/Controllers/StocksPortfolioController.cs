@@ -12,15 +12,19 @@ namespace WebStocks.Controllers
     public class StocksPortfolioController : Controller
     {
         private readonly Portfolio _portfolio;
-
+        private IWebHostEnvironment _webHostEnvironment;
         private StockRepository _stockRepository;
         private DividendRepository _dividendRepository;
 
-        public StocksPortfolioController(Portfolio portfolio, StockRepository stockRepository, DividendRepository dividendRepository)
+        public StocksPortfolioController(Portfolio portfolio,
+            StockRepository stockRepository,
+            DividendRepository dividendRepository,
+            IWebHostEnvironment webHostEnvironment)
         {
             _portfolio = portfolio;
             _stockRepository = stockRepository;
             _dividendRepository = dividendRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Home()
@@ -37,6 +41,36 @@ namespace WebStocks.Controllers
 
             return View(viewModel);
         }
+        public IActionResult StockInformation(int stockId)
+        {
+            var dbModel = _stockRepository.GetById(stockId);
+
+            var viewModel = new StockInformationViewModel
+            {
+                Id = dbModel.Id,
+                Name = dbModel.Name,
+                Price = dbModel.Price,
+                LogoUrl = dbModel.LogoUrl,
+                DateBuy = dbModel.DateBuy
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult UpdateLogo(int stockId, IFormFile logo)
+        {
+            var extension = Path.GetExtension(logo.FileName);
+            var fileName = $"stockLogo{stockId}{extension}";
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "logo", fileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                logo.CopyTo(fileStream);
+            }
+
+            var logoUrl = $"/images/logo/{fileName}";
+            _stockRepository.UpdateLogo(stockId, logoUrl);
+
+            return RedirectToAction("StockInformation", new { stockId });
+        }
 
         [HttpGet]
         public IActionResult AddStock()
@@ -50,14 +84,15 @@ namespace WebStocks.Controllers
             if (!ModelState.IsValid)
             {
                 return View(addStockViewModel);
-            } 
+            }
 
             var stock = new Stock
             {
                 Name = addStockViewModel.Name,
-                Price = addStockViewModel.Price
+                Price = addStockViewModel.Price,
+                DateBuy = addStockViewModel.DateBuy
             };
-         
+
             _stockRepository.Add(stock);
 
             return RedirectToAction("Home");
@@ -65,7 +100,7 @@ namespace WebStocks.Controllers
 
         public IActionResult RemoveStock(int id)
         {
-            _stockRepository.Delete(id);           
+            _stockRepository.Delete(id);
 
             return RedirectToAction("Home");
         }
@@ -74,7 +109,7 @@ namespace WebStocks.Controllers
         public IActionResult UpdateStockName(int id, string updName)
         {
             _stockRepository.UpdateStockName(id, updName);
-           
+
             return RedirectToAction("Home");
         }
 
@@ -101,7 +136,7 @@ namespace WebStocks.Controllers
             var viewModel = new AddDividendViewModel();
 
             viewModel.Stocks = _stockRepository.GetAll()
-                .Where(x=>x.IsDeleted==false)
+                .Where(x => x.IsDeleted == false)
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
 

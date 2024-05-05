@@ -3,13 +3,10 @@ using WebStocks.Models.ValidationAttributes;
 
 namespace WebStocks.Models
 {
-    public class AddStockViewModel 
+    public class StockInformationViewModel
     {
-        [Required]
-        [MinLength(2, ErrorMessage = "Слишком короткое название, не верю")]       
+        public int Id { get; set; }
         public string Name { get; set; }
-
-        [CheckingForPositiveNumbers]
         public int Price { get; set; }
         public string? LogoUrl { get; set; }
         public DateTime DateBuy { get; set; }
