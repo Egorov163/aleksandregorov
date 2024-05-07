@@ -19,6 +19,8 @@ builder.Services.AddScoped<DividendRepository>();
 
 var app = builder.Build();
 
+SeedExtension.Seed(app);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

@@ -47,5 +47,9 @@ namespace WebStocks.DbStuff.Repositories
             return dbModel.Id;
         }
 
+        public virtual bool Any()
+        {
+            return _entities.Any();
+        }
     }
 }

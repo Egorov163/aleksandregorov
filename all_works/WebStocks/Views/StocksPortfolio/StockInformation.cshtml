@@ -1,0 +1,34 @@
+﻿@model StockInformationViewModel
+
+@section CustomStyle {
+    <link rel="stylesheet" href="/css/StockInformation.css">
+}
+
+
+<div>   
+
+    <form action="/StocksPortfolio/UpdateLogo" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="stockId" value="@Model.Id" />
+        <input type="file" name="logo" />
+        <input type="submit" value="Обновить логотип"/>
+    </form>
+
+</div>
+
+<div class="logo">
+    Логотип
+    <img src="@Model.LogoUrl" />
+</div>
+
+<div>
+    Название акции @Model.Name
+</div>
+
+<div>
+    Цена @Model.Price
+</div>
+
+<div>
+    Дата покупки @Model.DateBuy
+</div>
+

@@ -2,6 +2,8 @@
 
 
 <form method="post">
+
+   
     <div>
         Название @Html.TextBoxFor(x => x.Name)
         @Html.ValidationMessageFor(x=>x.Name)
@@ -13,7 +15,13 @@
     </div>
 
     <div>
+        Дата <input type="date" name="DateBuy"/>
+        @Html.ValidationMessageFor(x => x.DateBuy)
+    </div>
+
+    <div>
         <input type="submit" value="Добавить акцию" />
     </div>
+
 </form>
 

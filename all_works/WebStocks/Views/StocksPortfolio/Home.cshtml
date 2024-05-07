@@ -26,7 +26,8 @@
                 {
                     <div class="table-of-shares">
                         <div>
-                            @stock.Name
+                            <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">@stock.Name</a>
+
                             <form action="/StocksPortfolio/UpdateStockName" method="post">
                                 <input type="hidden" name="id" value="@stock.Id" />
                                 <input name="updName" value="@stock.Name" />

@@ -28,5 +28,11 @@ namespace WebStocks.DbStuff.Repositories
                 .IsDeleted=true;
             _dbContext.SaveChanges();
         }
+
+        public void UpdateLogo(int stockId, string logoUrl)
+        {
+            GetById(stockId).LogoUrl = logoUrl;
+            _dbContext.SaveChanges();
+        }
     }
 }
