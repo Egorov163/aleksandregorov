@@ -33,5 +33,6 @@ header {
 }
 
 .list-dividend {
-    margin-right: 715px;
+    margin-right: 300px;
+    float:right
 }

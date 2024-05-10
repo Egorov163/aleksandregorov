@@ -12,13 +12,13 @@ namespace WebStocks.DbStuff
             using (var serviceScope = app.Services.CreateScope())
             {
                 SeedStock(serviceScope.ServiceProvider);
+                SeedUser(serviceScope.ServiceProvider);
             }
-
         }
 
-        private static void SeedStock(IServiceProvider di)
+        private static void SeedStock(IServiceProvider serviceProvider)
         {
-            var stockRepository = di.GetService<StockRepository>();
+            var stockRepository = serviceProvider.GetService<StockRepository>();
             if (!stockRepository.Any())
             {
                 var stock = new Stock
@@ -29,6 +29,21 @@ namespace WebStocks.DbStuff
                     DateBuy = DateTime.Now
                 };
                 stockRepository.Add(stock);
+            }
+        }
+
+        private static void SeedUser(IServiceProvider serviceProvider)
+        {
+            var userRepository = serviceProvider.GetService<UserRepository>();
+            if (!userRepository.AnyUserWithName("Admin"))
+            {
+                var admin = new User
+                {
+                    Login = "Admin",
+                    Email = "Admin@admin.com",
+                    Password = "Admin"                  
+                };
+                userRepository.Add(admin);
             }
         }
     }

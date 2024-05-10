@@ -28,8 +28,19 @@
             <a href="/StocksPortfolio/Dividends">Список дивидендов</a>
         </div>
 
+        <div class="home user">
+            Пользователь:
+        </div>
+
         <div class="authorization">
-            <a href="#">Вход /</a>
+            @if ((!User?.Identity?.IsAuthenticated) ?? true)
+            {              
+                <a href="/Auth/Login">Вход /</a>
+            }
+            else
+            {
+                <a href="/Auth/Logout">Выход /</a>
+            }
             <a href="#">Регистрация</a>
         </div>
 
