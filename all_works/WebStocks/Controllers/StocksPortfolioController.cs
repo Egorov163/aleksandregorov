@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebStocks.DbStuff;
@@ -12,6 +13,7 @@ namespace WebStocks.Controllers
     public class StocksPortfolioController : Controller
     {
         private readonly Portfolio _portfolio;
+        private AuthService _authService;
         private IWebHostEnvironment _webHostEnvironment;
         private StockRepository _stockRepository;
         private DividendRepository _dividendRepository;
@@ -19,23 +21,28 @@ namespace WebStocks.Controllers
         public StocksPortfolioController(Portfolio portfolio,
             StockRepository stockRepository,
             DividendRepository dividendRepository,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            AuthService authService)
         {
             _portfolio = portfolio;
             _stockRepository = stockRepository;
             _dividendRepository = dividendRepository;
             _webHostEnvironment = webHostEnvironment;
+            _authService = authService;
         }
 
         public IActionResult Home()
         {
+            var userName = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value ?? "Гость";
+
             var dbStocks = _stockRepository.Get(10);
 
             var viewModel = dbStocks.Select(dbStock => new StockViewModel
             {
                 Id = dbStock.Id,
                 Name = dbStock.Name,
-                Price = dbStock.Price
+                Price = dbStock.Price,
+                OwnerName = dbStock.Owner?.Login ?? "Неизвестный"
             })
                 .ToList();
 
@@ -73,12 +80,14 @@ namespace WebStocks.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddStock()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddStock(AddStockViewModel addStockViewModel)
         {
             if (!ModelState.IsValid)
@@ -90,7 +99,8 @@ namespace WebStocks.Controllers
             {
                 Name = addStockViewModel.Name,
                 Price = addStockViewModel.Price,
-                DateBuy = addStockViewModel.DateBuy
+                DateBuy = addStockViewModel.DateBuy,
+                Owner = _authService.GetCurrentUser()
             };
 
             _stockRepository.Add(stock);
@@ -131,6 +141,7 @@ namespace WebStocks.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddDividend()
         {
             var viewModel = new AddDividendViewModel();
@@ -144,6 +155,7 @@ namespace WebStocks.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddDividend(int price, int stockId)
         {
             var stock = _stockRepository.GetById(stockId);

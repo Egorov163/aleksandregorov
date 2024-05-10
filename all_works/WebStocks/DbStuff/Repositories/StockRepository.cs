@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using WebStocks.DbStuff.Models;
 
 namespace WebStocks.DbStuff.Repositories
@@ -17,6 +18,7 @@ namespace WebStocks.DbStuff.Repositories
         {
             return _entities
                 .Where(x => x.IsDeleted == false)
+                .Include(x => x.Owner)
                 .Take(maxCount)
                 .ToList();
         }

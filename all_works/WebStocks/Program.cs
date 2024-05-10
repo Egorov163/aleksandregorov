@@ -1,9 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using WebStocks.Controllers;
 using WebStocks.DbStuff;
 using WebStocks.DbStuff.Repositories;
 using WebStocks.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(AuthController.AUTH_KEY)
+    .AddCookie(AuthController.AUTH_KEY, option =>
+    {
+        option.LoginPath = "/Auth/Login";
+    });
 
 var connectionString = builder.Configuration.GetConnectionString("WebStocksDb");
 builder.Services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
@@ -12,10 +19,14 @@ builder.Services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<Portfolio>();
+builder.Services.AddScoped<AuthService>();
 
 //Repositories
 builder.Services.AddScoped<StockRepository>();
 builder.Services.AddScoped<DividendRepository>();
+builder.Services.AddScoped<UserRepository>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -33,6 +44,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAuthorization();
 

@@ -25,6 +25,7 @@
                 @foreach (var stock in Model)
                 {
                     <div class="table-of-shares">
+                        <div>@stock.OwnerName</div>
                         <div>
                             <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">@stock.Name</a>
 
@@ -51,6 +52,8 @@
                 </div>
             </div>
         </div>
-        <div class="right"></div>
+        <div class="right">
+
+        </div>
     </div>
 </body>
