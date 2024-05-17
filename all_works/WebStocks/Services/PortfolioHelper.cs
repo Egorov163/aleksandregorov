@@ -2,7 +2,7 @@
 
 namespace WebStocks.Services
 {
-    public class Portfolio
+    public class PortfolioHelper
     {
         public int GetPortfolioValue(List<StockViewModel> stocks)
         {

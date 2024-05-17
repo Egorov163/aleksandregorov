@@ -13,14 +13,14 @@ namespace WebStocks.Controllers
 {
     public class StocksPortfolioController : Controller
     {
-        private readonly Portfolio _portfolio;
+        private readonly PortfolioHelper _portfolio;
         private AuthService _authService;
         private IWebHostEnvironment _webHostEnvironment;
         private StockRepository _stockRepository;
         private DividendRepository _dividendRepository;
         private StockPermissions _stockPermissions;
 
-        public StocksPortfolioController(Portfolio portfolio,
+        public StocksPortfolioController(PortfolioHelper portfolio,
             StockRepository stockRepository,
             DividendRepository dividendRepository,
             IWebHostEnvironment webHostEnvironment,
