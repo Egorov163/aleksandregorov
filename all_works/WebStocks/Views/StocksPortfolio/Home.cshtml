@@ -1,4 +1,4 @@
-﻿    @model List<StockViewModel>
+﻿    @model StockIndexViewModel
 
 @section CustomStyle {
     <link rel="stylesheet" href="/css/main.css">
@@ -22,7 +22,7 @@
             </div>
 
             <div class="list-of-shares">
-                @foreach (var stock in Model)
+                @foreach (var stock in Model.Stocks)
                 {
                     <div class="table-of-shares">
                         <div>@stock.OwnerName</div>
@@ -38,11 +38,15 @@
                         <div>@stock.Price</div>
                         <div>5%</div>
 
-                        <a href="/StocksPortfolio/RemoveStock?id=@stock.Id" class="button1">Удалить Акцию</a>
+                        @if (stock.CanDelete)
+                        {
+                            <a href="/StocksPortfolio/RemoveStock?id=@stock.Id" class="button1">Удалить Акцию</a>
+                        }
+                        
                     </div>
                 }
             </div>
-
+            
             <div class="add-and-remove">
                 <div class="buttons-add-and-remove">
                     <div>
@@ -53,7 +57,8 @@
             </div>
         </div>
         <div class="right">
-
+            Привет @Model.UserName !
+            <a href="/StocksPortfolio/AddRandomStock" class="button1">Добавить пример</a>
         </div>
     </div>
 </body>
