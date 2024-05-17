@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebStocks.Controllers.CustomAuthAttributes;
 using WebStocks.DbStuff;
 using WebStocks.DbStuff.Models;
 using WebStocks.DbStuff.Repositories;
@@ -17,18 +18,21 @@ namespace WebStocks.Controllers
         private IWebHostEnvironment _webHostEnvironment;
         private StockRepository _stockRepository;
         private DividendRepository _dividendRepository;
+        private StockPermissions _stockPermissions;
 
         public StocksPortfolioController(Portfolio portfolio,
             StockRepository stockRepository,
             DividendRepository dividendRepository,
             IWebHostEnvironment webHostEnvironment,
-            AuthService authService)
+            AuthService authService,
+            StockPermissions stockPermissions)
         {
             _portfolio = portfolio;
             _stockRepository = stockRepository;
             _dividendRepository = dividendRepository;
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;
+            _stockPermissions = stockPermissions;
         }
 
         public IActionResult Home()
@@ -37,14 +41,22 @@ namespace WebStocks.Controllers
 
             var dbStocks = _stockRepository.Get(10);
 
-            var viewModel = dbStocks.Select(dbStock => new StockViewModel
-            {
-                Id = dbStock.Id,
-                Name = dbStock.Name,
-                Price = dbStock.Price,
-                OwnerName = dbStock.Owner?.Login ?? "Неизвестный"
-            })
+            var StockVewModel = dbStocks.
+                Select(dbStock => new StockViewModel
+                {
+                    Id = dbStock.Id,
+                    Name = dbStock.Name,
+                    Price = dbStock.Price,
+                    OwnerName = dbStock.Owner?.Login ?? "Неизвестный",
+                    CanDelete = _stockPermissions.CanDetele(dbStock)
+                })
                 .ToList();
+
+            var viewModel = new StockIndexViewModel
+            {
+                Stocks = StockVewModel,
+                UserName = userName
+            };
 
             return View(viewModel);
         }
@@ -108,8 +120,31 @@ namespace WebStocks.Controllers
             return RedirectToAction("Home");
         }
 
+        [AdminOnlyAttributes]
+        public IActionResult AddRandomStock(AddStockViewModel addStockViewModel)
+        {           
+            var stock = new Stock
+            {
+                Name = "ОФЗ",
+                Price = 1000,
+                DateBuy = DateTime.Now,
+                Owner = _authService.GetCurrentUser()
+            };
+
+            _stockRepository.Add(stock);
+
+            return RedirectToAction("Home");
+        }
+
         public IActionResult RemoveStock(int id)
         {
+            var dbStock = _stockRepository.GetByIdWithOwner(id);
+
+            if (!_stockPermissions.CanDetele(dbStock))
+            {
+                throw new Exception("Всё, приехали");
+            }
+       
             _stockRepository.Delete(id);
 
             return RedirectToAction("Home");

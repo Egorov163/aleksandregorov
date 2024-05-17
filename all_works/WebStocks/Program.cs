@@ -10,6 +10,7 @@ builder.Services.AddAuthentication(AuthController.AUTH_KEY)
     .AddCookie(AuthController.AUTH_KEY, option =>
     {
         option.LoginPath = "/Auth/Login";
+        option.AccessDeniedPath = "/Auth/deny";
     });
 
 var connectionString = builder.Configuration.GetConnectionString("WebStocksDb");
@@ -20,6 +21,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<Portfolio>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<StockPermissions>();
 
 //Repositories
 builder.Services.AddScoped<StockRepository>();

@@ -14,7 +14,7 @@ namespace WebStocks.DbStuff.Repositories
             _dbContext.SaveChanges();
         }
 
-        public override IEnumerable<Stock> Get(int maxCount)
+        public override IEnumerable<Stock> Get(int maxCount = 10)
         {
             return _entities
                 .Where(x => x.IsDeleted == false)
@@ -23,11 +23,18 @@ namespace WebStocks.DbStuff.Repositories
                 .ToList();
         }
 
-        public override void Delete(int id) 
+        public Stock GetByIdWithOwner(int StockId)
+        {
+            return _entities
+                .Include(x => x.Owner)
+                .First(x => x.Id == StockId);
+        }
+
+        public override void Delete(int id)
         {
             var dbModel = _entities
                 .First(x => x.Id == id)
-                .IsDeleted=true;
+                .IsDeleted = true;
             _dbContext.SaveChanges();
         }
 

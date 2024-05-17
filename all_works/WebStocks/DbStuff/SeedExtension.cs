@@ -35,15 +35,26 @@ namespace WebStocks.DbStuff
         private static void SeedUser(IServiceProvider serviceProvider)
         {
             var userRepository = serviceProvider.GetService<UserRepository>();
-            if (!userRepository.AnyUserWithName("Admin"))
+            if (!userRepository.AnyUserWithName("admin"))
             {
                 var admin = new User
                 {
-                    Login = "Admin",
+                    Login = "admin",
                     Email = "Admin@admin.com",
-                    Password = "Admin"                  
+                    Password = "admin"                  
                 };
                 userRepository.Add(admin);
+            }
+
+            if (!userRepository.AnyUserWithName("user"))
+            {
+                var user = new User
+                {
+                    Login = "user",
+                    Email = "user@user.com",
+                    Password = "user"
+                };
+                userRepository.Add(user);
             }
         }
     }
