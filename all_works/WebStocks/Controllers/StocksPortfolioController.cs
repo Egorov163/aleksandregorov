@@ -48,14 +48,38 @@ namespace WebStocks.Controllers
                     Name = dbStock.Name,
                     Price = dbStock.Price,
                     OwnerName = dbStock.Owner?.Login ?? "Неизвестный",
-                    CanDelete = _stockPermissions.CanDetele(dbStock)
+                    CanDelete = _stockPermissions.CanDetele(dbStock),
+
                 })
                 .ToList();
 
             var viewModel = new StockIndexViewModel
             {
                 Stocks = StockVewModel,
-                UserName = userName
+                UserName = userName,
+                IsAdmin = _authService.IsAdmin()
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult DeletedStocks()
+        {
+            var dbStocks = _stockRepository.GetDeletedStocks();
+
+            var StockViewModel = dbStocks.
+                Select(dbStock => new StockViewModel
+                {
+                    Id = dbStock.Id,
+                    Name = dbStock.Name,
+                    Price = dbStock.Price,
+                    CanDelete = _stockPermissions.CanDetele(dbStock)
+                })
+                .ToList();
+
+            var viewModel = new StockDeletedViewModel
+            {
+                Stocks = StockViewModel,
+                IsAdmin = _authService.IsAdmin()
             };
 
             return View(viewModel);
@@ -148,6 +172,20 @@ namespace WebStocks.Controllers
             _stockRepository.Delete(id);
 
             return RedirectToAction("Home");
+        }
+
+        public IActionResult RemoveStockForStockDeleted(int id)
+        {
+            var dbStock = _stockRepository.GetByIdWithOwner(id);
+
+            if (!_stockPermissions.CanDetele(dbStock))
+            {
+                throw new Exception("Всё, приехали");
+            }
+
+            _stockRepository.DeleteFromDb(id);
+
+            return RedirectToAction("DeletedStocks");
         }
 
         [HttpPost]

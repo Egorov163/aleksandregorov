@@ -1,8 +1,7 @@
 namespace WebStocks.Models
 {
-    public class StockIndexViewModel
+    public class StockDeletedViewModel
     {      
-        public string UserName { get; set; }
         public bool IsAdmin { get; set; }
         public List<StockViewModel> Stocks { get; set; }
 

@@ -22,6 +22,14 @@ namespace WebStocks.DbStuff.Repositories
                 .Take(maxCount)
                 .ToList();
         }
+        public IEnumerable<Stock> GetDeletedStocks(int maxCount = 10)
+        {
+
+            return _entities
+                .Where(x => x.IsDeleted == true)
+                .Take(maxCount)
+                .ToList();
+        }
 
         public Stock GetByIdWithOwner(int StockId)
         {
@@ -35,6 +43,14 @@ namespace WebStocks.DbStuff.Repositories
             var dbModel = _entities
                 .First(x => x.Id == id)
                 .IsDeleted = true;
+            _dbContext.SaveChanges();
+        }
+
+        public  void DeleteFromDb(int id)
+        {
+            var dbModel = _entities
+                .First(x => x.Id == id);
+            _entities.Remove(dbModel);
             _dbContext.SaveChanges();
         }
 
