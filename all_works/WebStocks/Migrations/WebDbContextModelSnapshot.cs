@@ -64,7 +64,7 @@ namespace WebStocks.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -118,7 +118,8 @@ namespace WebStocks.Migrations
                     b.HasOne("WebStocks.DbStuff.Models.User", "Owner")
                         .WithMany("MyStocks")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });
