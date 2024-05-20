@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using WebStocks.DbStuff.Models;
+using WebStocks.Services;
 
 namespace WebStocks.DbStuff.Repositories
 {
@@ -20,6 +21,14 @@ namespace WebStocks.DbStuff.Repositories
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.Owner)
                 .Take(maxCount)
+                .ToList();
+        }
+
+        public  IEnumerable<Stock> GetUserStocks(int? id)
+        {
+            return _entities
+                .Where(x => x.IsDeleted == false)
+                .Where(x => x.Owner.Id == id)
                 .ToList();
         }
         public IEnumerable<Stock> GetDeletedStocks(int maxCount = 10)

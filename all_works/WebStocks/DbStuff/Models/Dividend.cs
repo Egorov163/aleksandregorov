@@ -4,5 +4,6 @@
     {
         public int Price { get; set; }
         public virtual Stock Stock { get; set; }
+        public virtual User? Owner { get; set; }
     }
 }

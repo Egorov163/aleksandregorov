@@ -7,5 +7,7 @@
         public string? Password { get; set; }
         public string? AvatarUrl { get; set; }
         public virtual List<Stock> MyStocks { get; set; }
+        public virtual List<Dividend> MyDividends { get; set; }
+
     }
 }

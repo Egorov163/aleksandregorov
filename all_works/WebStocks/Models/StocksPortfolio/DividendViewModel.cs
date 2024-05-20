@@ -1,3 +1,6 @@
+using WebStocks.DbStuff.Models;
+using WebStocks.Services;
+
 namespace WebStocks.Models
 {
     public class DividendViewModel
@@ -5,5 +8,7 @@ namespace WebStocks.Models
         public int Id { get; set; }
         public string NameStock { get; set; }
         public int Price { get; set; }
+        public bool CanDelete { get; set; }
+        public string OwnerName { get; set; }
     }
 }

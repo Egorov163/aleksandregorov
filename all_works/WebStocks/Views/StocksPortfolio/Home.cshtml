@@ -28,12 +28,15 @@
                         <div>@stock.OwnerName</div>
                         <div>
                             <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">@stock.Name</a>
+                            @if (stock.CanChange)
+                            {
+                                <form action="/StocksPortfolio/UpdateStockName" method="post">
+                                    <input type="hidden" name="id" value="@stock.Id" />
+                                    <input name="updName" value="@stock.Name" />
+                                    <input type="submit" value="обновить" />
+                                </form>
+                            }
 
-                            <form action="/StocksPortfolio/UpdateStockName" method="post">
-                                <input type="hidden" name="id" value="@stock.Id" />
-                                <input name="updName" value="@stock.Name" />
-                                <input type="submit" value="обновить" />
-                            </form>
                         </div>
                         <div>@stock.Price</div>
                         <div>5%</div>
@@ -67,4 +70,5 @@
                 <a href="/StocksPortfolio/DeletedStocks">Удалённые акции /</a>
             }
         </div>
+    </div>
 </body>

@@ -23,6 +23,11 @@ namespace WebStocks.DbStuff
                 .WithOne(myStocks => myStocks.Owner)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<User>()
+               .HasMany(user => user.MyDividends)
+               .WithOne(myDividends => myDividends.Owner)
+               .OnDelete(DeleteBehavior.NoAction);
+
             base.OnModelCreating(builder); 
         }
     }

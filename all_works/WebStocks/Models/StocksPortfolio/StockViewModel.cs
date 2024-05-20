@@ -6,6 +6,8 @@ namespace WebStocks.Models
         public string Name { get; set; }
         public int Price { get; set; }
         public string OwnerName { get; set; }
-        public bool CanDelete { get; set; }    
+        public bool CanDelete { get; set; }
+        public bool CanChange { get; set; }
+
     }
 }
