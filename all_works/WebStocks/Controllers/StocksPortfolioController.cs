@@ -19,13 +19,15 @@ namespace WebStocks.Controllers
         private StockRepository _stockRepository;
         private DividendRepository _dividendRepository;
         private StockPermissions _stockPermissions;
+        private DividendPermissions _dividendPermissions;
 
         public StocksPortfolioController(PortfolioHelper portfolio,
             StockRepository stockRepository,
             DividendRepository dividendRepository,
             IWebHostEnvironment webHostEnvironment,
             AuthService authService,
-            StockPermissions stockPermissions)
+            StockPermissions stockPermissions,
+            DividendPermissions dividendPermissions)
         {
             _portfolio = portfolio;
             _stockRepository = stockRepository;
@@ -33,6 +35,7 @@ namespace WebStocks.Controllers
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;
             _stockPermissions = stockPermissions;
+            _dividendPermissions = dividendPermissions;
         }
 
         public IActionResult Home()
@@ -48,14 +51,38 @@ namespace WebStocks.Controllers
                     Name = dbStock.Name,
                     Price = dbStock.Price,
                     OwnerName = dbStock.Owner?.Login ?? "Неизвестный",
-                    CanDelete = _stockPermissions.CanDetele(dbStock)
+                    CanDelete = _stockPermissions.CanDetele(dbStock),
+                    CanChange = _stockPermissions.CanChange(dbStock)
                 })
                 .ToList();
 
             var viewModel = new StockIndexViewModel
             {
                 Stocks = StockVewModel,
-                UserName = userName
+                UserName = userName,
+                IsAdmin = _authService.IsAdmin()
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult DeletedStocks()
+        {
+            var dbStocks = _stockRepository.GetDeletedStocks();
+
+            var StockViewModel = dbStocks.
+                Select(dbStock => new StockViewModel
+                {
+                    Id = dbStock.Id,
+                    Name = dbStock.Name,
+                    Price = dbStock.Price,
+                    CanDelete = _stockPermissions.CanDetele(dbStock)
+                })
+                .ToList();
+
+            var viewModel = new StockDeletedViewModel
+            {
+                Stocks = StockViewModel,
+                IsAdmin = _authService.IsAdmin()
             };
 
             return View(viewModel);
@@ -112,7 +139,8 @@ namespace WebStocks.Controllers
                 Name = addStockViewModel.Name,
                 Price = addStockViewModel.Price,
                 DateBuy = addStockViewModel.DateBuy,
-                Owner = _authService.GetCurrentUser()
+                Owner = _authService.GetCurrentUser(),
+                IsDeleted = false
             };
 
             _stockRepository.Add(stock);
@@ -122,13 +150,14 @@ namespace WebStocks.Controllers
 
         [AdminOnlyAttributes]
         public IActionResult AddRandomStock(AddStockViewModel addStockViewModel)
-        {           
+        {
             var stock = new Stock
             {
                 Name = "ОФЗ",
                 Price = 1000,
                 DateBuy = DateTime.Now,
-                Owner = _authService.GetCurrentUser()
+                Owner = _authService.GetCurrentUser(),
+                IsDeleted = false
             };
 
             _stockRepository.Add(stock);
@@ -144,10 +173,24 @@ namespace WebStocks.Controllers
             {
                 throw new Exception("Всё, приехали");
             }
-       
+
             _stockRepository.Delete(id);
 
             return RedirectToAction("Home");
+        }
+
+        public IActionResult RemoveStockForStockDeleted(int id)
+        {
+            var dbStock = _stockRepository.GetByIdWithOwner(id);
+
+            if (!_stockPermissions.CanDetele(dbStock))
+            {
+                throw new Exception("Всё, приехали");
+            }
+
+            _stockRepository.DeleteFromDb(id);
+
+            return RedirectToAction("DeletedStocks");
         }
 
         [HttpPost]
@@ -160,17 +203,31 @@ namespace WebStocks.Controllers
 
         //Dividends
 
-        public IActionResult Dividends()
+        [Authorize]
+        public IActionResult DividendIndex()
         {
+            var userName = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value ?? "Гость";
+
             var dbDividends = _dividendRepository.Get(10);
 
-            var viewModel = dbDividends.Select(dbDividends => new DividendViewModel
+            var DividendViewModel = dbDividends.Select(dbDividends => new DividendViewModel
             {
                 Id = dbDividends.Id,
                 NameStock = dbDividends.Stock.Name,
-                Price = dbDividends.Price
+                Price = dbDividends.Price,
+                OwnerName = dbDividends.Owner?.Login ?? "Неизвестный",
+                CanDelete = _dividendPermissions.CanDetele(dbDividends)
+
             })
                 .ToList();
+
+
+            var viewModel = new DividendIndexViewModel
+            {
+                Dividends = DividendViewModel,
+                UserName = userName,
+                IsAdmin = _authService.IsAdmin()
+            };
 
             return View(viewModel);
         }
@@ -181,8 +238,7 @@ namespace WebStocks.Controllers
         {
             var viewModel = new AddDividendViewModel();
 
-            viewModel.Stocks = _stockRepository.GetAll()
-                .Where(x => x.IsDeleted == false)
+            viewModel.Stocks = _stockRepository.GetUserStocks(_authService.GetCurrentUserId())                
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
 
@@ -198,19 +254,20 @@ namespace WebStocks.Controllers
             var dividend = new Dividend
             {
                 Price = price,
-                Stock = (Stock)stock
+                Stock = (Stock)stock,
+                Owner = _authService.GetCurrentUser()
             };
 
             _dividendRepository.Add(dividend);
 
-            return RedirectToAction("Dividends");
+            return RedirectToAction("DividendIndex");
         }
 
         public IActionResult RemoveDividend(int id)
         {
             _dividendRepository.Delete(id);
 
-            return RedirectToAction("Dividends");
+            return RedirectToAction("DividendIndex");
         }
     }
 }

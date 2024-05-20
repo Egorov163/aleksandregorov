@@ -1,4 +1,4 @@
-﻿    @model List<DividendViewModel>
+﻿@model DividendIndexViewModel
 
 @section CustomStyle {
     <link rel="stylesheet" href="/css/main.css">
@@ -7,7 +7,7 @@
 <body>
 
     <div class="main">
-        
+
         <div class="centre">
             <div class="the-title-of-the-list-of-shares">
 
@@ -17,15 +17,23 @@
             </div>
 
             <div class="list-of-shares">
-                @foreach (var dividend in Model)
+                @foreach (var dividend in Model.Dividends)
                 {
                     <div class="table-of-shares">
                         <div>
-                            @dividend.NameStock                           
+                            @dividend.OwnerName
+                        </div>
+                        <div>
+                            @dividend.NameStock
                         </div>
                         <div>@dividend.Price</div>
 
-                        <a href="/StocksPortfolio/RemoveDividend?id=@dividend.Id" class="button1">Удалить дивиденд</a>
+                        @if (dividend.CanDelete)
+                        {
+                            <div>
+                                <a href="/StocksPortfolio/RemoveDividend?id=@dividend.Id" class="button1">Удалить дивиденд</a>
+                            </div>
+                        }
                     </div>
                 }
             </div>
@@ -38,6 +46,8 @@
                 </div>
             </div>
         </div>
-        <div class="right"></div>
+        <div class="right">
+            @Model.UserName
+        </div>
     </div>
 </body>

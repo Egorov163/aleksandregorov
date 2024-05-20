@@ -19,6 +19,11 @@ namespace WebStocks.Services
             || stock.Owner?.Id == _authService.GetCurrentUserId()
             || IsCurrentUserAdmin;
 
+        public bool CanChange(Stock stock)
+          => stock.Owner is null
+            || stock.Owner?.Id == _authService.GetCurrentUserId()
+            || IsCurrentUserAdmin;
+
 
     }
 }

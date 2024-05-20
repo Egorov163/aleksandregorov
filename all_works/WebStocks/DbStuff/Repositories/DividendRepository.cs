@@ -11,6 +11,7 @@ namespace WebStocks.DbStuff.Repositories
         {
              return _entities
                 .Include(x => x.Stock)
+                .Include(x => x.Owner)
                 .Take(maxCount)
                 .ToList();
         }

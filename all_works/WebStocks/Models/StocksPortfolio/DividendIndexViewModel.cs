@@ -1,10 +1,9 @@
 namespace WebStocks.Models
 {
-    public class StockIndexViewModel
-    {      
+    public class DividendIndexViewModel
+    {
+        public List<DividendViewModel> Dividends { get; set; }
         public string UserName { get; set; }
         public bool IsAdmin { get; set; }
-        public List<StockViewModel> Stocks { get; set; }
-
     }
 }
