@@ -4,7 +4,7 @@ using WebStocks.DbStuff.Models;
 namespace WebStocks.DbStuff
 {
     public class WebDbContext : DbContext
-    {       
+    {
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Dividend> Dividends { get; set; }
         public DbSet<User> Users { get; set; }
@@ -28,7 +28,7 @@ namespace WebStocks.DbStuff
                .WithOne(myDividends => myDividends.Owner)
                .OnDelete(DeleteBehavior.NoAction);
 
-            base.OnModelCreating(builder); 
+            base.OnModelCreating(builder);
         }
     }
 }

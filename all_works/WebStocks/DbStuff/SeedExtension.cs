@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using WebStocks.DbStuff.Models;
+﻿using WebStocks.DbStuff.Models;
 using WebStocks.DbStuff.Repositories;
 
 namespace WebStocks.DbStuff
@@ -40,8 +39,8 @@ namespace WebStocks.DbStuff
                 var admin = new User
                 {
                     Login = "admin",
-                    Email = "Admin@admin.com",
-                    Password = "admin"                  
+                    Email = "admin@admin.com",
+                    Password = "admin"
                 };
                 userRepository.Add(admin);
             }

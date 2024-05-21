@@ -15,7 +15,7 @@ namespace WebStocks.DbStuff.Repositories
 
         internal bool AnyUserWithName(string name)
         {
-            return _entities.Any(x=>x.Login == name);
+            return _entities.Any(x => x.Login == name);
         }
     }
 }

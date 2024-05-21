@@ -1,6 +1,3 @@
-using WebStocks.DbStuff.Models;
-using WebStocks.Services;
-
 namespace WebStocks.Models
 {
     public class DividendViewModel

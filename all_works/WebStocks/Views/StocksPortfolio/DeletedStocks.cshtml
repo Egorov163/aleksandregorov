@@ -7,16 +7,25 @@
 <body>
 
     <div class="main">
+
         <div class="left">
+
             <div class="growth-dynamics">
+
                 <a href="#">Динамика роста портфеля</a>
+
             </div>
+
         </div>
+
         <div class="centre">
+
             <div class="the-title-of-the-list-of-shares">
 
                 <div>Название акции</div>
+
                 <div>Цена</div>
+
                 <div>Доля в портфеле</div>
 
             </div>
@@ -25,28 +34,42 @@
                 @foreach (var stock in Model.Stocks)
                 {
                     <div class="table-of-shares">
+
                         <div>@stock.OwnerName</div>
+
                         <div>
-                            <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">@stock.Name</a>                            
+                            <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">@stock.Name</a>
                         </div>
+
                         <div>@stock.Price</div>
+
                         <div>5%</div>
 
                         @if (stock.CanDelete)
                         {
                             <a href="/StocksPortfolio/RemoveStockForStockDeleted?id=@stock.Id" class="button1">Удалить Акцию</a>
-                        }                      
+                        }
+
                     </div>
                 }
+
             </div>
-            
+
             <div class="add-and-remove">
+
                 <div class="buttons-add-and-remove">
+
                     <div>
+
                         <a href="#" class="button1">Удалить Акцию</a>
+
                     </div>
+
                 </div>
+
             </div>
-        </div>       
+
+        </div>
+
     </div>
 </body>
