@@ -1,9 +1,7 @@
 ﻿@model AddStockViewModel
 
 
-<form method="post">
-
-   
+<form method="post">  
     <div>
         Название @Html.TextBoxFor(x => x.Name)
         @Html.ValidationMessageFor(x=>x.Name)
@@ -22,6 +20,5 @@
     <div>
         <input type="submit" value="Добавить акцию" />
     </div>
-
 </form>
 

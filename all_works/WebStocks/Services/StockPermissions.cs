@@ -1,5 +1,4 @@
 ﻿using WebStocks.DbStuff.Models;
-using WebStocks.Models;
 
 namespace WebStocks.Services
 {
@@ -7,7 +6,7 @@ namespace WebStocks.Services
     {
         private AuthService _authService;
 
-        public bool IsCurrentUserAdmin  => _authService.IsAdmin();
+        public bool IsCurrentUserAdmin => _authService.IsAdmin();
 
         public StockPermissions(AuthService authService)
         {
@@ -15,7 +14,7 @@ namespace WebStocks.Services
         }
 
         public bool CanDetele(Stock stock)
-          => stock.Owner is null 
+          => stock.Owner is null
             || stock.Owner?.Id == _authService.GetCurrentUserId()
             || IsCurrentUserAdmin;
 
@@ -23,7 +22,5 @@ namespace WebStocks.Services
           => stock.Owner is null
             || stock.Owner?.Id == _authService.GetCurrentUserId()
             || IsCurrentUserAdmin;
-
-
     }
 }

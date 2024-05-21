@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebStocks.DbStuff.Repositories;
 using WebStocks.Models.Auth;
-using WebStocks.Services;
 
 namespace WebStocks.Controllers
 {
     public class AuthController : Controller
     {
         private UserRepository _userRepository;
-        
+
 
         public const string AUTH_KEY = "Smile";
 
@@ -48,7 +47,7 @@ namespace WebStocks.Controllers
             HttpContext
                 .SignInAsync(AUTH_KEY, principal)
                 .Wait();
-            return RedirectToAction("Home", "StocksPortfolio");           
+            return RedirectToAction("Home", "StocksPortfolio");
         }
 
         public IActionResult Logout()

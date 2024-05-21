@@ -9,11 +9,11 @@ namespace WebStocks.DbStuff.Repositories
 
         public override IEnumerable<Dividend> Get(int maxCount)
         {
-             return _entities
-                .Include(x => x.Stock)
-                .Include(x => x.Owner)
-                .Take(maxCount)
-                .ToList();
+            return _entities
+               .Include(x => x.Stock)
+               .Include(x => x.Owner)
+               .Take(maxCount)
+               .ToList();
         }
     }
 }

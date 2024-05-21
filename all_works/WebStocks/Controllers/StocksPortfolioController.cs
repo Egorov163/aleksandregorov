@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using WebStocks.Controllers.CustomAuthAttributes;
-using WebStocks.DbStuff;
 using WebStocks.DbStuff.Models;
 using WebStocks.DbStuff.Repositories;
 using WebStocks.Models;

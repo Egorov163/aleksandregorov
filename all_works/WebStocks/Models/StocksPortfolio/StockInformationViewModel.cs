@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using WebStocks.Models.ValidationAttributes;
-
 namespace WebStocks.Models
 {
     public class StockInformationViewModel

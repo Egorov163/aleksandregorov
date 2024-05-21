@@ -34,7 +34,7 @@
 
         <div class="authorization">
             @if ((!User?.Identity?.IsAuthenticated) ?? true)
-            {              
+            {
                 <a href="/Auth/Login">Вход /</a>
             }
             else
