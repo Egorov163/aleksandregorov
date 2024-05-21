@@ -238,7 +238,7 @@ namespace WebStocks.Controllers
         {
             var viewModel = new AddDividendViewModel();
 
-            viewModel.Stocks = _stockRepository.GetUserStocks(_authService.GetCurrentUserId())                
+            viewModel.Stocks = _stockRepository.GetUserStocks(_authService.GetCurrentUserId())
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
 

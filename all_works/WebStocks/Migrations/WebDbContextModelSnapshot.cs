@@ -45,7 +45,7 @@ namespace WebStocks.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Dividends");
+                    b.ToTable("Dividends", (string)null);
                 });
 
             modelBuilder.Entity("WebStocks.DbStuff.Models.Stock", b =>
@@ -79,7 +79,7 @@ namespace WebStocks.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Stocks");
+                    b.ToTable("Stocks", (string)null);
                 });
 
             modelBuilder.Entity("WebStocks.DbStuff.Models.User", b =>
@@ -104,7 +104,7 @@ namespace WebStocks.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("WebStocks.DbStuff.Models.Dividend", b =>
