@@ -1,11 +1,11 @@
 ﻿    @model StockIndexViewModel
 
 @section Style {
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/main.css?v=1">
 }
 @section Script {
     <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/js/stocks/home.js"></script>    
+    <script src="/js/stocks/home.js"></script>
 }
 
 <body>
@@ -48,7 +48,7 @@
 
                             </div>
 
-                            <div class="stock-rename">
+                            <div class="details short">
 
                                 @if (stock.CanChange)
                                 {
@@ -65,7 +65,8 @@
                                     </div>
                                 }
 
-                            </div>                          
+                            </div>
+
 
                         </div>
 
