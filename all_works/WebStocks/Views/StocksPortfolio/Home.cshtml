@@ -44,7 +44,7 @@
 
                             <div class="stock-name">
 
-                                <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">@stock.Name</a>
+                                @stock.Name
 
                             </div>
 
@@ -57,6 +57,12 @@
                                         <input name="updName" value="@stock.Name" />
                                         <input type="submit" value="обновить" />
                                     </form>
+
+                                    <div class="stock-information">
+
+                                        <a href="/StocksPortfolio/StockInformation?stockId=@stock.Id">Подробнее</a>
+
+                                    </div>
                                 }
 
                             </div>                          
