@@ -99,3 +99,7 @@ ul>li{
 .details.short {
     display: none;
 }
+
+.dollar {
+    cursor: pointer;
+}

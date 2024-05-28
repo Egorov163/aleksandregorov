@@ -36,7 +36,7 @@
 
                 @foreach (var stock in Model.Stocks)
                 {
-                    <div class="table-of-shares">
+                    <div class="table-of-shares" data-stock-id=@stock.Id>
 
                         <div>@stock.OwnerName</div>
 
@@ -70,7 +70,10 @@
 
                         </div>
 
-                        <div>@stock.Price</div>
+                        <div>
+                            <span class="price-count">@stock.Price</span>
+                            <span class="dollar">$</span>
+                        </div>
 
                         <div>5%</div>
 
