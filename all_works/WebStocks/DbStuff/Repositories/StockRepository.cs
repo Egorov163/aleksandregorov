@@ -67,5 +67,14 @@ namespace WebStocks.DbStuff.Repositories
             GetById(stockId).LogoUrl = logoUrl;
             _dbContext.SaveChanges();
         }
+
+        public int AddOneCoin(int stockId)
+        {
+            var stock = GetById(stockId);
+            stock.Price++;
+            _dbContext.SaveChanges();
+
+            return stock.Price;
+        }
     }
 }
