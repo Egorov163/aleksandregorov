@@ -1,4 +1,5 @@
-﻿@model StockInformationViewModel
+﻿@using WebStocks.Localizations
+@model StockInformationViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/StockInformation.css">
@@ -10,25 +11,25 @@
     <form action="/StocksPortfolio/UpdateLogo" method="post" enctype="multipart/form-data">
         <input type="hidden" name="stockId" value="@Model.Id" />
         <input type="file" name="logo" />
-        <input type="submit" value="Обновить логотип" />
+        <input type="submit" value="@Stocks.UpdateLogo" />
     </form>
 
 </div>
 
 <div class="logo">
-    Логотип
+    @Stocks.Logo
     <img src="@Model.LogoUrl" />
 </div>
 
 <div>
-    Название акции @Model.Name
+    @Stocks.NameStock @Model.Name
 </div>
 
 <div>
-    Цена @Model.Price
+    @Stocks.Price @Model.Price
 </div>
 
 <div>
-    Дата покупки @Model.DateBuy
+    @Stocks.DateBuy @Model.DateBuy
 </div>
 

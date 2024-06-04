@@ -1,24 +1,26 @@
-﻿@model AddStockViewModel
+﻿@using WebStocks.Localizations
+@model AddStockViewModel
+
 
 
 <form method="post">  
     <div>
-        Название @Html.TextBoxFor(x => x.Name)
+        @Stocks.NameStock @Html.TextBoxFor(x => x.Name)
         @Html.ValidationMessageFor(x=>x.Name)
     </div>
 
     <div>
-        Цена @Html.TextBoxFor(x => x.Price)   
+        @Stocks.Price @Html.TextBoxFor(x => x.Price)
         @Html.ValidationMessageFor(x => x.Price)
     </div>
 
     <div>
-        Дата <input type="date" name="DateBuy"/>
+        @Stocks.DateBuy <input type="date" name="DateBuy" />
         @Html.ValidationMessageFor(x => x.DateBuy)
     </div>
 
     <div>
-        <input type="submit" value="Добавить акцию" />
+        <input type="submit" value="@Stocks.AddStock" />
     </div>
 </form>
 

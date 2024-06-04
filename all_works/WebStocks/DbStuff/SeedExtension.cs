@@ -40,7 +40,8 @@ namespace WebStocks.DbStuff
                 {
                     Login = "admin",
                     Email = "admin@admin.com",
-                    Password = "admin"
+                    Password = "admin",
+                    PreferLocale = "en-US"
                 };
                 userRepository.Add(admin);
             }
@@ -51,7 +52,8 @@ namespace WebStocks.DbStuff
                 {
                     Login = "user",
                     Email = "user@user.com",
-                    Password = "user"
+                    Password = "user",
+                    PreferLocale = "en-US"
                 };
                 userRepository.Add(user);
             }

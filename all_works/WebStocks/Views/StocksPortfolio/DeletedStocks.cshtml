@@ -1,4 +1,5 @@
-﻿    @model StockDeletedViewModel
+﻿    @using WebStocks.Localizations
+    @model StockDeletedViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/main.css">
@@ -12,7 +13,7 @@
 
             <div class="growth-dynamics">
 
-                <a href="#">Динамика роста портфеля</a>
+                <a href="#">@Stocks.PortfolioGrowthDynamics</a>
 
             </div>
 
@@ -22,11 +23,11 @@
 
             <div class="the-title-of-the-list-of-shares">
 
-                <div>Название акции</div>
+                <div>@Stocks.NameStock</div>
 
-                <div>Цена</div>
+                <div>@Stocks.Price</div>
 
-                <div>Доля в портфеле</div>
+                <div>@Stocks.ShareInThePortfolio</div>
 
             </div>
 
@@ -61,7 +62,7 @@
 
                     <div>
 
-                        <a href="#" class="button1">Удалить Акцию</a>
+                        <a href="#" class="button1">@Stocks.DeleteAStock</a>
 
                     </div>
 
