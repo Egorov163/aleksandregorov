@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using WebStocks.Services;
 
 namespace WebStocks.CustomMiddleware
 {
@@ -14,20 +15,28 @@ namespace WebStocks.CustomMiddleware
         public async Task InvokeAsync(HttpContext context)
         {
             CultureInfo culture;
-            var localFromCookie = context.Request.Cookies["languages"];
-            if (localFromCookie == null) 
+
+            var authService = context.RequestServices.GetService<AuthService>();
+
+            if (authService.IsAuthenticated())
+            {
+                culture = new CultureInfo(authService.GetCurrentUserLocale());
+            }
+
+            else if (context.Request.Cookies["languages"] != null)
+            {
+                var localFromCookie = context.Request.Cookies["languages"];
+                culture = new CultureInfo(localFromCookie);
+            }
+            else
             {
                 string acceptLanguage = context.Request.Headers.AcceptLanguage;
                 var locale = acceptLanguage.Substring(0, 2);
 
-                culture = new System.Globalization.CultureInfo(locale);
-            }
-            else 
-            {
-                culture = new System.Globalization.CultureInfo(localFromCookie);
+                culture = new CultureInfo(locale);
             }
 
-            
+
 
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;

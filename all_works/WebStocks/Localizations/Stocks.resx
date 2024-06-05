@@ -126,6 +126,9 @@
   <data name="AddStock" xml:space="preserve">
     <value>Add stock</value>
   </data>
+  <data name="CurrentLanguage" xml:space="preserve">
+    <value>Current language</value>
+  </data>
   <data name="DateBuy" xml:space="preserve">
     <value>Date buy</value>
   </data>
@@ -165,6 +168,9 @@
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
   </data>
@@ -173,6 +179,9 @@
   </data>
   <data name="Stock" xml:space="preserve">
     <value>Stock</value>
+  </data>
+  <data name="SwitchYourPreferredLanguage" xml:space="preserve">
+    <value>Switch your preferred language</value>
   </data>
   <data name="UpdateLogo" xml:space="preserve">
     <value>Update logo</value>

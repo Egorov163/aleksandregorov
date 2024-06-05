@@ -126,6 +126,9 @@
   <data name="AddStock" xml:space="preserve">
     <value>Добавить акцию</value>
   </data>
+  <data name="CurrentLanguage" xml:space="preserve">
+    <value>Текущий язык</value>
+  </data>
   <data name="DateBuy" xml:space="preserve">
     <value>Дата покупки</value>
   </data>
@@ -165,6 +168,9 @@
   <data name="Price" xml:space="preserve">
     <value>Цена</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Регистрация</value>
   </data>
@@ -173,6 +179,9 @@
   </data>
   <data name="Stock" xml:space="preserve">
     <value>Акция</value>
+  </data>
+  <data name="SwitchYourPreferredLanguage" xml:space="preserve">
+    <value>Переключить предпочитаемый язык</value>
   </data>
   <data name="UpdateLogo" xml:space="preserve">
     <value>Обноваить логотип</value>

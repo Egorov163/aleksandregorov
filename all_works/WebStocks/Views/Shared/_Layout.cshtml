@@ -28,6 +28,14 @@
             <a href="/StocksPortfolio/DividendIndex">@Stocks.ListDividends</a>
         </div>
 
+        @if ((User?.Identity?.IsAuthenticated) ?? true)
+        {
+            <div class="home profile">
+                <a href="/User/Profile">Профиль</a>
+            </div>
+        }
+
+
         <div class="authorization">
             @if ((!User?.Identity?.IsAuthenticated) ?? true)
             {
@@ -43,9 +51,13 @@
     </div>
 </header>
 <body>
-    @RenderBody()   
+    @RenderBody()
 </body>
-<div class="footer">
-    Языки: <span class="lang">ru-RU</span>/<span class="lang">en-EN</span>
-</div>
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="footer">
+        Языки: <span class="lang">ru-RU</span>/<span class="lang">en-EN</span>
+    </div>
+}
+
 

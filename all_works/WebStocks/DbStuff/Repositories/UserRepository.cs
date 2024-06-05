@@ -13,9 +13,16 @@ namespace WebStocks.DbStuff.Repositories
                 .FirstOrDefault(user => user.Login == login && user.Password == password);
         }
 
-        internal bool AnyUserWithName(string name)
+        public bool AnyUserWithName(string name)
         {
             return _entities.Any(x => x.Login == name);
+        }
+
+        public void SwitchLocal(int userId, string locale)
+        {
+            var user = GetById(userId);
+            user.PreferLocale = locale;
+            _dbContext.SaveChanges();
         }
     }
 }

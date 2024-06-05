@@ -88,6 +88,15 @@ namespace WebStocks.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Current language.
+        /// </summary>
+        public static string CurrentLanguage {
+            get {
+                return ResourceManager.GetString("CurrentLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Date buy.
         /// </summary>
         public static string DateBuy {
@@ -205,6 +214,15 @@ namespace WebStocks.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Registration.
         /// </summary>
         public static string Registration {
@@ -228,6 +246,15 @@ namespace WebStocks.Localizations {
         public static string Stock {
             get {
                 return ResourceManager.GetString("Stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Switch your preferred language.
+        /// </summary>
+        public static string SwitchYourPreferredLanguage {
+            get {
+                return ResourceManager.GetString("SwitchYourPreferredLanguage", resourceCulture);
             }
         }
         

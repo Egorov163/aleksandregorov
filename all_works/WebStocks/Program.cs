@@ -44,8 +44,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseMiddleware<CustomLocalizationMiddleware>();
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -55,6 +53,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseAuthorization();
+
+app.UseMiddleware<CustomLocalizationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
