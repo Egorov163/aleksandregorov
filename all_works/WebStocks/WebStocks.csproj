@@ -19,4 +19,22 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Localizations\Stocks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Stocks.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localizations\Stocks.ru.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Stocks.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Stocks.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,10 @@
+﻿    @using WebStocks.Localizations
+    @model UserIndexViewModel
+
+<body>
+    <div>@Stocks.CurrentLanguage @Model.CurrentLocale</div>
+    <div>@Stocks.SwitchYourPreferredLanguage</div>
+
+    <a href="/User/SwitchLocale?locale=en">English</a>
+    <a href="/User/SwitchLocale?locale=ru">Русский</a>
+</body>

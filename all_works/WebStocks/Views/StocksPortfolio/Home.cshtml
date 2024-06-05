@@ -1,4 +1,5 @@
-﻿    @model StockIndexViewModel
+﻿    @using WebStocks.Localizations
+    @model StockIndexViewModel
 
 @section Style {
     <link rel="stylesheet" href="/css/main.css?v=1">
@@ -16,7 +17,7 @@
 
             <div class="growth-dynamics">
 
-                <a href="#">Динамика роста портфеля</a>
+                <a href="#">@Stocks.PortfolioGrowthDynamics</a>
 
             </div>
 
@@ -26,9 +27,9 @@
 
             <div class="the-title-of-the-list-of-shares">
 
-                <div>Название акции</div>
-                <div>Цена</div>
-                <div>Доля в портфеле</div>
+                <div>@Stocks.NameStock</div>
+                <div>@Stocks.Price</div>
+                <div>@Stocks.ShareInThePortfolio</div>
 
             </div>
 
@@ -79,7 +80,7 @@
 
                         @if (stock.CanDelete)
                         {
-                            <a href="/StocksPortfolio/RemoveStock?id=@stock.Id" class="button1">Удалить Акцию</a>
+                            <a href="/StocksPortfolio/RemoveStock?id=@stock.Id" class="button1">@Stocks.DeleteAStock</a>
                         }
 
                     </div>
@@ -89,21 +90,21 @@
             <div class="add-and-remove">
                 <div class="buttons-add-and-remove">
                     <div>
-                        <a href="/StocksPortfolio/AddStock" class="button1">Добавить Акцию</a>
-                        <a href="#" class="button1">Удалить Акцию</a>
+                        <a href="/StocksPortfolio/AddStock" class="button1">@Stocks.AddStock</a>
+                        <a href="#" class="button1">@Stocks.DeleteAStock</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="right">
             Привет @Model.UserName !
-            <a href="/StocksPortfolio/AddRandomStock" class="button1">Добавить пример</a>
+            <a href="/StocksPortfolio/AddRandomStock" class="button1">@Stocks.AddAnExample</a>
         </div>
 
         <div class="deleted-stocks">
             @if (Model.IsAdmin)
             {
-                <a href="/StocksPortfolio/DeletedStocks">Удалённые акции /</a>
+                <a href="/StocksPortfolio/DeletedStocks">@Stocks.DeletedStocks</a>
             }
         </div>
     </div>

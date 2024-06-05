@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebStocks.DbStuff.Repositories;
 using WebStocks.Models.Auth;
+using WebStocks.Services;
 
 namespace WebStocks.Controllers
 {
@@ -40,6 +41,7 @@ namespace WebStocks.Controllers
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim("name", user.Login.ToString()),
+                new Claim(AuthService.LOCALE_TYPE, user.PreferLocale),
                 new Claim("email", user.Email??"")
             };
             var identity = new ClaimsIdentity(claims, AUTH_KEY);

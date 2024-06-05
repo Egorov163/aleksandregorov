@@ -7,6 +7,7 @@ namespace WebStocks.Services
     {
         private UserRepository _userRepository;
         private IHttpContextAccessor _httpContextAccessor;
+        public const string LOCALE_TYPE = "locale";
 
         public AuthService(UserRepository userRepository,
             IHttpContextAccessor httpContextAccessor)
@@ -40,12 +41,23 @@ namespace WebStocks.Services
 
         public string? GetCurrentUserName()
         {
-            return _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value;
+            return _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value ?? "Гость";
         }
 
         public bool IsAdmin()
         {
             return GetCurrentUserName() == "admin";
+        }
+
+        public string GetCurrentUserLocale()
+        {
+            return _httpContextAccessor.HttpContext.User
+                .Claims.FirstOrDefault(x => x.Type == LOCALE_TYPE)?.Value ?? "en-EN";
+        }
+
+        public bool IsAuthenticated()
+        {
+            return GetCurrentUserId() != null;
         }
     }
 }

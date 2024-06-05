@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebStocks.Controllers;
+using WebStocks.CustomMiddleware;
 using WebStocks.DbStuff;
 using WebStocks.DbStuff.Repositories;
 using WebStocks.Services;
@@ -52,6 +53,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseAuthorization();
+
+app.UseMiddleware<CustomLocalizationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

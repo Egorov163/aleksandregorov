@@ -37,7 +37,7 @@ namespace WebStocks.Controllers
         }
 
         public IActionResult Home()
-        {
+        {          
             var userName = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value ?? "Гость";
 
             var dbStocks = _stockRepository.Get(10);
