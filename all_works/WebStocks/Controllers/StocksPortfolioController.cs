@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebStocks.BusinessService;
 using WebStocks.Controllers.CustomAuthAttributes;
 using WebStocks.DbStuff.Models;
 using WebStocks.DbStuff.Repositories;
@@ -18,6 +19,8 @@ namespace WebStocks.Controllers
         private DividendRepository _dividendRepository;
         private StockPermissions _stockPermissions;
         private DividendPermissions _dividendPermissions;
+        private StockBusinnesService _stockBusinnesService;
+        private DividendBusinnesService _dividendBusinnesService;
 
         public StocksPortfolioController(PortfolioHelper portfolio,
             StockRepository stockRepository,
@@ -25,7 +28,9 @@ namespace WebStocks.Controllers
             IWebHostEnvironment webHostEnvironment,
             AuthService authService,
             StockPermissions stockPermissions,
-            DividendPermissions dividendPermissions)
+            DividendPermissions dividendPermissions,
+            StockBusinnesService stockBusinnesService,
+            DividendBusinnesService dividendBusinnesService)
         {
             _portfolio = portfolio;
             _stockRepository = stockRepository;
@@ -34,25 +39,15 @@ namespace WebStocks.Controllers
             _authService = authService;
             _stockPermissions = stockPermissions;
             _dividendPermissions = dividendPermissions;
+            _stockBusinnesService = stockBusinnesService;
+            _dividendBusinnesService = dividendBusinnesService;
         }
 
         public IActionResult Home()
         {          
             var userName = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value ?? "Гость";
 
-            var dbStocks = _stockRepository.Get(10);
-
-            var StockVewModel = dbStocks.
-                Select(dbStock => new StockViewModel
-                {
-                    Id = dbStock.Id,
-                    Name = dbStock.Name,
-                    Price = dbStock.Price,
-                    OwnerName = dbStock.Owner?.Login ?? "Неизвестный",
-                    CanDelete = _stockPermissions.CanDetele(dbStock),
-                    CanChange = _stockPermissions.CanChange(dbStock)
-                })
-                .ToList();
+            var StockVewModel = _stockBusinnesService.GetTop10StocksForMainPage();
 
             var viewModel = new StockIndexViewModel
             {
@@ -65,17 +60,7 @@ namespace WebStocks.Controllers
         }
         public IActionResult DeletedStocks()
         {
-            var dbStocks = _stockRepository.GetDeletedStocks();
-
-            var StockViewModel = dbStocks.
-                Select(dbStock => new StockViewModel
-                {
-                    Id = dbStock.Id,
-                    Name = dbStock.Name,
-                    Price = dbStock.Price,
-                    CanDelete = _stockPermissions.CanDetele(dbStock)
-                })
-                .ToList();
+            var StockViewModel = _stockBusinnesService.GetDeletedStocksForMainPage();
 
             var viewModel = new StockDeletedViewModel
             {
@@ -87,16 +72,8 @@ namespace WebStocks.Controllers
         }
         public IActionResult StockInformation(int stockId)
         {
-            var dbModel = _stockRepository.GetById(stockId);
-
-            var viewModel = new StockInformationViewModel
-            {
-                Id = dbModel.Id,
-                Name = dbModel.Name,
-                Price = dbModel.Price,
-                LogoUrl = dbModel.LogoUrl,
-                DateBuy = dbModel.DateBuy
-            };
+            var viewModel = _stockBusinnesService.GetStockInformationForMainPage(stockId);    
+                
             return View(viewModel);
         }
 
@@ -208,16 +185,7 @@ namespace WebStocks.Controllers
 
             var dbDividends = _dividendRepository.Get(10);
 
-            var DividendViewModel = dbDividends.Select(dbDividends => new DividendViewModel
-            {
-                Id = dbDividends.Id,
-                NameStock = dbDividends.Stock.Name,
-                Price = dbDividends.Price,
-                OwnerName = dbDividends.Owner?.Login ?? "Неизвестный",
-                CanDelete = _dividendPermissions.CanDetele(dbDividends)
-
-            })
-                .ToList();
+            var DividendViewModel = _dividendBusinnesService.GetTop10DividendsForMainPage();
 
 
             var viewModel = new DividendIndexViewModel

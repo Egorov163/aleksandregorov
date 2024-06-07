@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using WebStocks.BusinessService;
 using WebStocks.Controllers;
 using WebStocks.CustomMiddleware;
 using WebStocks.DbStuff;
@@ -16,19 +18,35 @@ builder.Services.AddAuthentication(AuthController.AUTH_KEY)
 
 var connectionString = builder.Configuration.GetConnectionString("WebStocksDb");
 builder.Services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+// Add services to the container.
 
+//Helpers
 builder.Services.AddScoped<PortfolioHelper>();
 builder.Services.AddScoped<AuthService>();
+
+//Permissions
 builder.Services.AddScoped<StockPermissions>();
 builder.Services.AddScoped<DividendPermissions>();
+
+//BusinnesService
+builder.Services.AddScoped<StockBusinnesService>();
+builder.Services.AddScoped<DividendBusinnesService>();
 
 //Repositories
 builder.Services.AddScoped<StockRepository>();
 builder.Services.AddScoped<DividendRepository>();
 builder.Services.AddScoped<UserRepository>();
+
+// Вариант автоматической регистрации репозиториев
+//var typeOfBaseRepository = typeof(BaseRepository<>);
+//Assembly
+//    .GetAssembly(typeOfBaseRepository)
+//    .GetTypes()
+//    .Where(x => x.BaseType?.IsGenericType ?? false
+//        && x.BaseType.GetGenericTypeDefinition() == typeOfBaseRepository)
+//    .ToList()
+//    .ForEach(repositoryType => builder.Services.AddScoped(repositoryType));
 
 builder.Services.AddHttpContextAccessor();
 
