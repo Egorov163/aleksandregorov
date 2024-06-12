@@ -24,6 +24,7 @@ builder.Services.AddControllersWithViews();
 //Helpers
 builder.Services.AddScoped<PortfolioHelper>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ReflectionService>();
 
 //Permissions
 builder.Services.AddScoped<StockPermissions>();
