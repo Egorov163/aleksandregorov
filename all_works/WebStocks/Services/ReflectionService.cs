@@ -8,16 +8,16 @@ namespace WebStocks.Services
 {
     public class ReflectionService
     {
-        public ApiHelperViewModel BuilderApiHelperViewModel(Type apiControllerType)
+        public HelperViewModel BuilderHelperViewModel(Type ControllerType)
         {
             var controllerMethodNames = typeof(Controller)
                 .GetMethods(BindingFlags.Public | BindingFlags.Instance)
                 .Select(x => x.Name)
                 .ToList();
 
-            var apiHelperViewModel = new ApiHelperViewModel();
-            apiHelperViewModel.Name = apiControllerType.Name;
-            apiHelperViewModel.Methods = apiControllerType
+            var helperViewModel = new HelperViewModel();
+            helperViewModel.Name = ControllerType.Name;
+            helperViewModel.Methods = ControllerType
                 .GetMethods(BindingFlags.Public | BindingFlags.Instance)
                 .Where(method => !controllerMethodNames.Contains(method.Name))
                 .Select(method => new MethodViewModel()
@@ -34,7 +34,7 @@ namespace WebStocks.Services
                     .ToList()
                 })
                 .ToList();
-            return apiHelperViewModel;
+            return helperViewModel;
         }
 
         private string GenerateJsonExample(Type parameterType, int deep)
