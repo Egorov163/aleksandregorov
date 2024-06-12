@@ -183,8 +183,6 @@ namespace WebStocks.Controllers
         {
             var userName = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value ?? "Гость";
 
-            var dbDividends = _dividendRepository.Get(10);
-
             var DividendViewModel = _dividendBusinnesService.GetTop10DividendsForMainPage();
 
 

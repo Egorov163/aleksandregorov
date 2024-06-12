@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebStocks.Controllers.CustomAuthAttributes;
 using WebStocks.DbStuff.Repositories;
+using WebStocks.Models.StockApiHelper;
 
 namespace WebStocks.Controllers.ApiControllers
 {
@@ -18,6 +19,12 @@ namespace WebStocks.Controllers.ApiControllers
         public int PricePlusOne(int stockId)
         {
             return _stockRepository.AddOneCoin(stockId);
+        }
+
+        [HttpPost]
+        public int Test(ApiHelperViewModel helperViewModel)
+        {
+            return 0;
         }
     }
 }

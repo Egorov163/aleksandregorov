@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\StockApiHelper\**" />
-    <Content Remove="Views\StockApiHelper\**" />
-    <EmbeddedResource Remove="Views\StockApiHelper\**" />
-    <None Remove="Views\StockApiHelper\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\images\logo\" />
   </ItemGroup>
 
