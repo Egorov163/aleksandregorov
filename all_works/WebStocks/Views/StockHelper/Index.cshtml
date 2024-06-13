@@ -1,0 +1,54 @@
+﻿
+@using WebStocks.Models.StockHelper
+@model IndexHelperViewModel
+
+@section Style {
+    <link rel="stylesheet" href="/css/stockApiHelper.css">
+}
+@section Script {
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/js/stocks/stockApiHelper.js"></script>
+}
+
+<div class="controller-container">
+    <div class="controller-name">
+        Api controllers
+    </div>
+
+    @foreach (var method in Model.HelperApiViewModel.Methods)
+    {
+        <div class="method @method.MethodType">
+            <span class="method-name">@method.Name [@method.MethodType]</span>
+            <div class="parameters">
+                @foreach (var parameter in method.Parameters)
+                {
+                    <div class="parameter">
+                        @parameter.Name [@parameter.TypeName]
+                        <textarea>@parameter.Exempel</textarea>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="controller-container">
+    <div class="controller-name">
+        Controllers
+    </div>
+
+    @foreach (var method in Model.HelperViewModel.Methods)
+    {
+        <div class="method @method.MethodType">
+            <span class="method-name">@method.Name [@method.MethodType]</span>
+            <div class="parameters">
+                @foreach (var parameter in method.Parameters)
+                {
+                    <div class="parameter">
+                        @parameter.Name [@parameter.TypeName]
+                        <textarea>@parameter.Exempel</textarea>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

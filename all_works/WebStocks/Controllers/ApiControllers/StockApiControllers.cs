@@ -22,7 +22,7 @@ namespace WebStocks.Controllers.ApiControllers
         }
 
         [HttpPost]
-        public int Test(ApiHelperViewModel helperViewModel)
+        public int Test(HelperViewModel helperViewModel)
         {
             return 0;
         }

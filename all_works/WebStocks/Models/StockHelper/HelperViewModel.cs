@@ -1,6 +1,6 @@
 ﻿namespace WebStocks.Models.StockApiHelper
 {
-    public class ApiHelperViewModel
+    public class HelperViewModel
     {
         public string Name { get; set; }
         public List<MethodViewModel> Methods { get; set; }
