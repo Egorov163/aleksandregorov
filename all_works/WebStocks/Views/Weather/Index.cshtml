@@ -1,0 +1,12 @@
+﻿@using WebStocks.Models.Weather
+
+@model WeatherIndexViewModel
+
+<div>
+    @for (int i = 0; i < 24; i++)
+    {
+        <div>В @i часов @Model.TemperaturesFor24Hours[i]</div>
+    }
+
+</div>
+

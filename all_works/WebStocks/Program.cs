@@ -47,6 +47,11 @@ builder.Services.AddHttpClient<ExchangeRateApi>(client=>
     client.BaseAddress = new Uri("https://www.cbr-xml-daily.ru");
 });
 
+builder.Services.AddHttpClient<WeatherApi>(client =>
+{
+    client.BaseAddress = new Uri("https://api.open-meteo.com");
+});
+
 // Вариант автоматической регистрации репозиториев
 //var typeOfBaseRepository = typeof(BaseRepository<>);
 //Assembly
