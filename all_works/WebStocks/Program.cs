@@ -6,6 +6,7 @@ using WebStocks.CustomMiddleware;
 using WebStocks.DbStuff;
 using WebStocks.DbStuff.Repositories;
 using WebStocks.Services;
+using WebStocks.Services.ApiServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,13 @@ builder.Services.AddScoped<DividendBusinnesService>();
 builder.Services.AddScoped<StockRepository>();
 builder.Services.AddScoped<DividendRepository>();
 builder.Services.AddScoped<UserRepository>();
+
+//ApiServices
+
+builder.Services.AddHttpClient<ExchangeRateApi>(client=>
+{
+    client.BaseAddress = new Uri("https://www.cbr-xml-daily.ru");
+});
 
 // Вариант автоматической регистрации репозиториев
 //var typeOfBaseRepository = typeof(BaseRepository<>);
